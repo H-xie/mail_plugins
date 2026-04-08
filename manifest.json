@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "Homework Contact Collector",
+  "description": "Collect sender addresses from homework emails and store student info in contacts.",
+  "version": "0.1.0",
+  "author": "mail_plugins",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "homework-contact-collector@example.local",
+      "strict_min_version": "115.0"
+    }
+  },
+  "permissions": [
+    "accountsRead",
+    "messagesRead",
+    "menus",
+    "addressBooks",
+    "tabs",
+    "storage"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  }
+}

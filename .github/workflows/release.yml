@@ -1,0 +1,44 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - "v*" # 当你推送形如 v1.0.0 的 tag 时触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Build XPI file
+        run: |
+          # 将你的插件文件打包为 .xpi 格式
+          zip -r homework-contact-collector.xpi manifest.json background.js picker.html picker.js README.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: homework-contact-collector.xpi
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 如果需要全自动提交签名到 Thunderbird (ATN)，可取消注释以下步骤：
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install web-ext
+        run: npm install -g web-ext
+
+      - name: Sign Add-on via Thunderbird ATN
+        run: >
+          web-ext sign
+          --source-dir .
+          --api-key ${{ secrets.ATN_JWT_ISSUER }}
+          --api-secret ${{ secrets.ATN_JWT_SECRET }}
+          --api-url https://addons.thunderbird.net/api/v4/
+          --channel unlisted # 若是私下分发选 unlisted，若是公开上架选 listed
