@@ -41,4 +41,4 @@ jobs:
           --api-key ${{ secrets.ATN_JWT_ISSUER }}
           --api-secret ${{ secrets.ATN_JWT_SECRET }}
           --api-url https://addons.thunderbird.net/api/v4/
-          --channel unlisted # 若是私下分发选 unlisted，若是公开上架选 listed
+          --channel listed # 若是私下分发选 unlisted，若是公开上架选 listed
