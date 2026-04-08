@@ -28,19 +28,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # 如果需要全自动提交签名到 Thunderbird (ATN)，可取消注释以下步骤：
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Install web-ext
-        run: npm install -g web-ext
-
-      - name: Sign Add-on via Thunderbird ATN
-        run: >
-          web-ext sign
-          --source-dir .
-          --api-key ${{ secrets.ATN_JWT_ISSUER }}
-          --api-secret ${{ secrets.ATN_JWT_SECRET }}
-          --amo-base-url https://addons.thunderbird.net/api/v4/
-          --channel unlisted # 改为 unlisted，首次提交方可通过 API 自动完成
+      # ⚠️ Thunderbird ATN 目前不支持通过 API 自动创建某个名字的“首个”版本
+      # # - name: Setup Node.js
+      # #   uses: actions/setup-node@v4
+      # #   with:
+      # #     node-version: '20'
+      # #
+      # # - name: Install web-ext
+      # #   run: npm install -g web-ext
+      # #
+      # # - name: Sign Add-on via Thunderbird ATN
+      # #   run: >
+      # #     web-ext sign
+      # #     --source-dir .
+      # #     --api-key ${{ secrets.ATN_JWT_ISSUER }}
+      # #     --api-secret ${{ secrets.ATN_JWT_SECRET }}
+      # #     --amo-base-url https://addons.thunderbird.net/api/v4/
+      # #     --channel unlisted # 改为 unlisted，首次提交方可通过 API 自动完成
