@@ -14,6 +14,14 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
+      - name: Update version in manifest.json
+        run: |
+          # 提取 tag 名称并去掉前缀的 'v' (例如从 v0.2.4 变成 0.2.4)
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "Setting version to $VERSION"
+          # 使用 jq 自动更新 manifest.json 的 version 字段
+          jq ".version = \"$VERSION\"" manifest.json > tmp.json && mv tmp.json manifest.json
+
       - name: Build XPI file
         run: |
           # 将你的插件文件打包为 .xpi 格式
