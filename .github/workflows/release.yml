@@ -43,4 +43,4 @@ jobs:
           --api-key ${{ secrets.ATN_JWT_ISSUER }}
           --api-secret ${{ secrets.ATN_JWT_SECRET }}
           --amo-base-url https://addons.thunderbird.net/api/v4/
-          --channel listed # 若是私下分发选 unlisted，若是公开上架选 listed
+          --channel unlisted # 改为 unlisted，首次提交方可通过 API 自动完成
